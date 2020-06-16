@@ -4,20 +4,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class FormDataService {
-  public tests = [
-    {
-      type: 'input',
-      label: 'First Name',
-      input_type: 'text',
-      name: 'first_name',
-      width: '100',
-      options: [],
-      row: 0,
-    },
-  ];
+  // public tests = [
+  //   {
+  //     type: 'input',
+  //     label: 'First Name',
+  //     input_type: 'text',
+  //     name: 'first_name',
+  //     width: '100',
+  //     options: [],
+  //     row: 0,
+  //   },
+  // ];
+  public tests = [];
   constructor() {}
-  public test = [];
-
   insertElement(ele) {
     this.tests.push(ele);
   }

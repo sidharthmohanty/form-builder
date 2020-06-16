@@ -10,14 +10,16 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 })
 export class ModalComponent implements OnInit {
   lists = [{ id: 1, name: 'a' }];
-  public test = [];
+  public tests = [];
 
   constructor(
     public service: FormDataService,
     public dialogRef: MatDialogRef<ModalComponent>
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.tests = this.service.getElementList();
+  }
 
   onSubmit(form: NgForm) {
     let opts = Object.values(form.value);

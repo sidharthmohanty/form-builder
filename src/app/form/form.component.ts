@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
 import { FormDataService } from '../form-data.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -29,5 +30,9 @@ export class FormComponent implements OnInit {
 
   deleteElement(index) {
     this.tests.splice(index, 1);
+  }
+
+  onFormSubmit(formData: NgForm) {
+    console.log(formData.value);
   }
 }
