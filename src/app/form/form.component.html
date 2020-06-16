@@ -1,18 +1,247 @@
 <div class="container">
   <div class="row mt-2">
-    <div class="col-9">
-      <div class="mt-5">
-        <div *ngFor="let test of tests" class="form-holder card-header">
+    <div class="col-9 mt-5">
+      <div *ngFor="let test of tests; let i = index" [ngSwitch]="test.type">
+        <!--Input tag-->
+        <div class="form-holder card-header" *ngSwitchCase="'input'">
           <div class="form-group">
-            <label for="{{ test.name }}" class="text-muted">{{
-              test.label
-            }}</label>
+            <div class="form-label d-flex justify-content-between">
+              <label for="{{ test.name }}" class="text-muted"
+                >{{ test.label }}
+              </label>
+              <div class="form-action">
+                <span class="material-icons edit-icon">
+                  edit
+                </span>
+                <span
+                  class="material-icons delete-icon"
+                  (click)="deleteElement(i)"
+                >
+                  delete
+                </span>
+              </div>
+            </div>
             <input
               type="text"
               name="{{ test.name }}"
               id="{{ test.name }}"
               class="form-control input-control"
               placeholder="{{ test.label }}"
+              width="{{ test.width }}"
+            />
+          </div>
+        </div>
+
+        <!--Dropdown-->
+        <div class="form-holder card-header" *ngSwitchCase="'dropdown'">
+          <div class="form-group">
+            <div class="form-label d-flex justify-content-between">
+              <label for="{{ test.name }}" class="text-muted"
+                >{{ test.label }}
+              </label>
+              <div class="form-action">
+                <span class="material-icons edit-icon">
+                  edit
+                </span>
+                <span
+                  class="material-icons delete-icon"
+                  (click)="deleteElement(i)"
+                >
+                  delete
+                </span>
+              </div>
+            </div>
+            <select
+              name="test.name"
+              id="test.name"
+              class="form-control input-control"
+            >
+              <option value="">{{ test.label }}</option>
+              <div class="" *ngFor="let option of test.options">
+                <option [value]="option">{{ option }}</option>
+              </div>
+            </select>
+          </div>
+        </div>
+
+        <!--Radio Button-->
+        <div class="form-holder card-header" *ngSwitchCase="'radio_button'">
+          <div class="form-group">
+            <div class="form-label d-flex justify-content-between">
+              <label for="{{ test.name }}" class="text-muted"
+                >{{ test.label }}
+              </label>
+              <div class="form-action">
+                <span class="material-icons edit-icon">
+                  edit
+                </span>
+                <span
+                  class="material-icons delete-icon"
+                  (click)="deleteElement(i)"
+                >
+                  delete
+                </span>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end">
+              <div class="text-muted">{{ test.label }}</div>
+              <div>
+                <div
+                  *ngFor="let option of test.options"
+                  class="form-check form-check-inline"
+                >
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="{{ test.name }}"
+                    id="{{ option }}"
+                    value="{{ option }}"
+                  />
+                  <label
+                    class="form-check-label text-muted"
+                    for="inlineRadio1"
+                    >{{ option }}</label
+                  >
+                </div>
+              </div>
+              <div>Options</div>
+            </div>
+          </div>
+        </div>
+        <!--Check Box-->
+        <div class="form-holder card-header" *ngSwitchCase="'checkbox'">
+          <div class="form-group">
+            <div class="form-label d-flex justify-content-between">
+              <label for="{{ test.name }}" class="text-muted"
+                >{{ test.label }}
+              </label>
+              <div class="form-action">
+                <span class="material-icons edit-icon">
+                  edit
+                </span>
+                <span
+                  class="material-icons delete-icon"
+                  (click)="deleteElement(i)"
+                >
+                  delete
+                </span>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-end">
+              <div class="text-muted">{{ test.label }}</div>
+              <div>
+                <div
+                  *ngFor="let option of test.options"
+                  class="form-check form-check-inline"
+                >
+                  <label
+                    class="form-check-label text-muted mr-1"
+                    for="inlineRadio1"
+                    >{{ option }}</label
+                  >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="{{ test.name }}"
+                    id="{{ option }}"
+                    value="{{ option }}"
+                  />
+                </div>
+              </div>
+              <div>Options</div>
+            </div>
+          </div>
+        </div>
+
+        <!--Date Field-->
+        <div class="form-holder card-header" *ngSwitchCase="'date_field'">
+          <div class="form-group">
+            <div class="form-label d-flex justify-content-between">
+              <label for="{{ test.name }}" class="text-muted"
+                >{{ test.label }}
+              </label>
+              <div class="form-action">
+                <span class="material-icons edit-icon">
+                  edit
+                </span>
+                <span
+                  class="material-icons delete-icon"
+                  (click)="deleteElement(i)"
+                >
+                  delete
+                </span>
+              </div>
+            </div>
+
+            <input
+              type="date"
+              name="{{ test.name }}"
+              id="{{ test.name }}"
+              class="form-control input-control"
+              placeholder="Hi there"
+              width="{{ test.width }}"
+            />
+          </div>
+        </div>
+
+        <!--Time Field-->
+        <div class="form-holder card-header" *ngSwitchCase="'time_field'">
+          <div class="form-group">
+            <div class="form-label d-flex justify-content-between">
+              <label for="{{ test.name }}" class="text-muted"
+                >{{ test.label }}
+              </label>
+              <div class="form-action">
+                <span class="material-icons edit-icon">
+                  edit
+                </span>
+                <span
+                  class="material-icons delete-icon"
+                  (click)="deleteElement(i)"
+                >
+                  delete
+                </span>
+              </div>
+            </div>
+            <input
+              type="time"
+              name="{{ test.name }}"
+              id="{{ test.name }}"
+              class="form-control input-control"
+              placeholder="{{ test.label }}"
+              width="{{ test.width }}"
+            />
+          </div>
+        </div>
+
+        <!--Text Area-->
+        <div class="form-holder card-header" *ngSwitchCase="'text_area'">
+          <div class="form-group">
+            <div class="form-label d-flex justify-content-between">
+              <label for="{{ test.name }}" class="text-muted"
+                >{{ test.label }}
+              </label>
+              <div class="form-action">
+                <span class="material-icons edit-icon">
+                  edit
+                </span>
+                <span
+                  class="material-icons delete-icon"
+                  (click)="deleteElement(i)"
+                >
+                  delete
+                </span>
+              </div>
+            </div>
+
+            <input
+              type="text"
+              name="{{ test.name }}"
+              id="{{ test.name }}"
+              class="form-control input-control"
+              placeholder="{{ test.label }}"
+              width="{{ test.width }}"
             />
           </div>
         </div>
@@ -27,9 +256,9 @@
       <div class="sidebar">
         <ul class="list-group">
           <li
-            class="list-group-item d-flex justify-content-between cp"
+            class="list-group-item d-flex justify-content-between"
             (click)="
-              addElement({
+              openDialog({
                 type: 'input',
                 label: 'Text Field',
                 input_type: '',
@@ -40,25 +269,111 @@
               })
             "
           >
-            <span>Text Field</span> <i class="material-icons">add</i>
+            <span class="custom-list my-1">Text Field</span>
+            <i class="material-icons">add</i>
           </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Select Field</span><i class="material-icons">add</i>
+          <li
+            class="list-group-item d-flex justify-content-between"
+            (click)="
+              openDialog({
+                type: 'dropdown',
+                label: 'Select Field',
+                input_type: '',
+                name: '',
+                width: '',
+                options: [],
+                row: 0
+              })
+            "
+          >
+            <span class="custom-list my-1">Select Field</span
+            ><i class="material-icons">add</i>
           </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Text Area</span><i class="material-icons">add</i>
+          <li
+            class="list-group-item d-flex justify-content-between"
+            (click)="
+              openDialog({
+                type: 'text_area',
+                label: 'Text Area',
+                input_type: '',
+                name: '',
+                width: '',
+                options: [],
+                row: 0
+              })
+            "
+          >
+            <span class="custom-list my-1">Text Area</span
+            ><i class="material-icons">add</i>
           </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Radio Group</span><i class="material-icons">add</i>
+          <li
+            class="list-group-item d-flex justify-content-between"
+            (click)="
+              openDialog({
+                type: 'radio_button',
+                label: 'Radio Group',
+                input_type: '',
+                name: 'radio',
+                width: '',
+                options: ['hi', 'bye'],
+                row: 0
+              })
+            "
+          >
+            <span class="custom-list my-1">Radio Group</span
+            ><i class="material-icons">add</i>
           </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Date Field</span><i class="material-icons">add</i>
+
+          <li
+            class="list-group-item d-flex justify-content-between"
+            (click)="
+              openDialog({
+                type: 'checkbox',
+                label: 'Checkbox Group',
+                input_type: '',
+                name: '',
+                width: '',
+                options: ['hi', 'hello'],
+                row: 0
+              })
+            "
+          >
+            <span class="custom-list my-1">Checkbox Group</span
+            ><i class="material-icons">add</i>
           </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Checkbox Group</span><i class="material-icons">add</i>
+          <li
+            class="list-group-item d-flex justify-content-between"
+            (click)="
+              openDialog({
+                type: 'date_field',
+                label: 'Date Field',
+                input_type: '',
+                name: '',
+                width: '',
+                options: [],
+                row: 0
+              })
+            "
+          >
+            <span class="custom-list my-1">Date Field</span
+            ><i class="material-icons">add</i>
           </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Time Field</span><i class="material-icons">add</i>
+          <li
+            class="list-group-item d-flex justify-content-between"
+            (click)="
+              openDialog({
+                type: 'time_field',
+                label: 'Time Field',
+                input_type: '',
+                name: '',
+                width: '',
+                options: [],
+                row: 0
+              })
+            "
+          >
+            <span class="custom-list my-1">Time Field</span
+            ><i class="material-icons">add</i>
           </li>
         </ul>
       </div>

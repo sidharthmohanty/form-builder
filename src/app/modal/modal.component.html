@@ -1,0 +1,22 @@
+<form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
+  <mat-grid-list cols="1" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <mat-form-field>
+          <input name="label" matInput placeholder="Label*" />
+        </mat-form-field>
+        <mat-form-field>
+          <input name="options" matInput placeholder="Enter Options*" />
+        </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit">
+            Submit
+          </button>
+          <button mat-raised-button color="warn" (click)="onClose()">
+            Close
+          </button>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

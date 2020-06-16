@@ -1,4 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
+import { FormDataService } from '../form-data.service';
 
 @Component({
   selector: 'app-form',
@@ -18,10 +21,32 @@ export class FormComponent implements OnInit {
       row: 0,
     },
   ];
+  public test: [];
 
-  constructor() {}
-  addElement(element) {
-    this.tests.push(element);
+  public inputTypes = 1;
+
+  constructor(public dialog: MatDialog, private service: FormDataService) {}
+  ngOnInit(): void {
+    this.tests = this.service.getElementList();
   }
-  ngOnInit(): void {}
+  openDialog(test) {
+    this.service.initializeFormGroup();
+
+    this.dialog.open(ModalComponent, {
+      width: '250px',
+      data: {
+        type: test.type,
+        label: test.label,
+        input_type: test.input_type,
+        name: test.name,
+        width: test.width,
+        options: test.options,
+        row: test.row,
+      },
+    });
+  }
+
+  deleteElement(index) {
+    this.tests.splice(index, 1);
+  }
 }
