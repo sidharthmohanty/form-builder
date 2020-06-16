@@ -1,18 +1,67 @@
-<div class="example-container">
-  <mat-form-field appearance="fill">
-    <mat-label>Input</mat-label>
-    <input matInput />
-  </mat-form-field>
-  <br />
-  <mat-form-field appearance="fill">
-    <mat-label>Select</mat-label>
-    <mat-select>
-      <mat-option value="option">Option</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <br />
-  <mat-form-field appearance="fill">
-    <mat-label>Textarea</mat-label>
-    <textarea matInput></textarea>
-  </mat-form-field>
+<div class="container">
+  <div class="row mt-2">
+    <div class="col-9">
+      <div class="mt-5">
+        <div *ngFor="let test of tests" class="form-holder card-header">
+          <div class="form-group">
+            <label for="{{ test.name }}" class="text-muted">{{
+              test.label
+            }}</label>
+            <input
+              type="text"
+              name="{{ test.name }}"
+              id="{{ test.name }}"
+              class="form-control input-control"
+              placeholder="{{ test.label }}"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button class="mx-2">Cancel</button>
+        <button mat-raised-button color="primary">Save</button>
+      </div>
+      <p class="text-muted my-2">Custom Form Builder</p>
+      <div class="sidebar">
+        <ul class="list-group">
+          <li
+            class="list-group-item d-flex justify-content-between cp"
+            (click)="
+              addElement({
+                type: 'input',
+                label: 'Text Field',
+                input_type: '',
+                name: '',
+                width: '',
+                options: [],
+                row: 0
+              })
+            "
+          >
+            <span>Text Field</span> <i class="material-icons">add</i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Select Field</span><i class="material-icons">add</i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Text Area</span><i class="material-icons">add</i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Radio Group</span><i class="material-icons">add</i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Date Field</span><i class="material-icons">add</i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Checkbox Group</span><i class="material-icons">add</i>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Time Field</span><i class="material-icons">add</i>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>

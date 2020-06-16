@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FormComponent implements OnInit {
-  public test = [
+  public tests = [
     {
       type: 'input',
       label: 'First Name',
@@ -17,6 +18,10 @@ export class FormComponent implements OnInit {
       row: 0,
     },
   ];
+
   constructor() {}
+  addElement(element) {
+    this.tests.push(element);
+  }
   ngOnInit(): void {}
 }
