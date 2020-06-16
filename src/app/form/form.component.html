@@ -1,9 +1,12 @@
 <div class="container">
   <div class="row mt-2">
     <div class="col-9 mt-5">
-      <div *ngFor="let test of tests; let i = index" [ngSwitch]="test.type">
+      <div
+        *ngFor="let test of tests; let i = index"
+        [ngSwitch]="test.input_type"
+      >
         <!--Input tag-->
-        <div class="form-holder card-header" *ngSwitchCase="'input'">
+        <div class="form-holder card-header" *ngSwitchCase="'text'">
           <div class="form-group">
             <div class="form-label d-flex justify-content-between">
               <label for="{{ test.name }}" class="text-muted"
@@ -33,7 +36,7 @@
         </div>
 
         <!--Dropdown-->
-        <div class="form-holder card-header" *ngSwitchCase="'dropdown'">
+        <div class="form-holder card-header" *ngSwitchCase="'options'">
           <div class="form-group">
             <div class="form-label d-flex justify-content-between">
               <label for="{{ test.name }}" class="text-muted"
@@ -65,7 +68,7 @@
         </div>
 
         <!--Radio Button-->
-        <div class="form-holder card-header" *ngSwitchCase="'radio_button'">
+        <div class="form-holder card-header" *ngSwitchCase="'radio'">
           <div class="form-group">
             <div class="form-label d-flex justify-content-between">
               <label for="{{ test.name }}" class="text-muted"
@@ -91,7 +94,7 @@
                   class="form-check form-check-inline"
                 >
                   <input
-                    class="form-check-input"
+                    class="form-check-input input-control"
                     type="radio"
                     name="{{ test.name }}"
                     id="{{ option }}"
@@ -108,6 +111,7 @@
             </div>
           </div>
         </div>
+
         <!--Check Box-->
         <div class="form-holder card-header" *ngSwitchCase="'checkbox'">
           <div class="form-group">
@@ -141,7 +145,7 @@
                     >{{ option }}</label
                   >
                   <input
-                    class="form-check-input"
+                    class="form-check-input input-control"
                     type="checkbox"
                     name="{{ test.name }}"
                     id="{{ option }}"
@@ -155,7 +159,7 @@
         </div>
 
         <!--Date Field-->
-        <div class="form-holder card-header" *ngSwitchCase="'date_field'">
+        <div class="form-holder card-header" *ngSwitchCase="'date'">
           <div class="form-group">
             <div class="form-label d-flex justify-content-between">
               <label for="{{ test.name }}" class="text-muted"
@@ -186,7 +190,7 @@
         </div>
 
         <!--Time Field-->
-        <div class="form-holder card-header" *ngSwitchCase="'time_field'">
+        <div class="form-holder card-header" *ngSwitchCase="'time'">
           <div class="form-group">
             <div class="form-label d-flex justify-content-between">
               <label for="{{ test.name }}" class="text-muted"
@@ -216,7 +220,7 @@
         </div>
 
         <!--Text Area-->
-        <div class="form-holder card-header" *ngSwitchCase="'text_area'">
+        <div class="form-holder card-header" *ngSwitchCase="'text-area'">
           <div class="form-group">
             <div class="form-label d-flex justify-content-between">
               <label for="{{ test.name }}" class="text-muted"
@@ -255,13 +259,14 @@
       <p class="text-muted my-2">Custom Form Builder</p>
       <div class="sidebar">
         <ul class="list-group">
+          <!--Add Input field-->
           <li
             class="list-group-item d-flex justify-content-between"
             (click)="
-              openDialog({
+              addElement({
                 type: 'input',
                 label: 'Text Field',
-                input_type: '',
+                input_type: 'text',
                 name: '',
                 width: '',
                 options: [],
@@ -272,13 +277,15 @@
             <span class="custom-list my-1">Text Field</span>
             <i class="material-icons">add</i>
           </li>
+
+          <!--Add Dropdown-->
           <li
             class="list-group-item d-flex justify-content-between"
             (click)="
               openDialog({
-                type: 'dropdown',
+                type: 'select',
                 label: 'Select Field',
-                input_type: '',
+                input_type: 'options',
                 name: '',
                 width: '',
                 options: [],
@@ -289,13 +296,15 @@
             <span class="custom-list my-1">Select Field</span
             ><i class="material-icons">add</i>
           </li>
+
+          <!--Add Text-Area-->
           <li
             class="list-group-item d-flex justify-content-between"
             (click)="
-              openDialog({
-                type: 'text_area',
+              addElement({
+                type: 'input',
                 label: 'Text Area',
-                input_type: '',
+                input_type: 'text-area',
                 name: '',
                 width: '',
                 options: [],
@@ -306,16 +315,18 @@
             <span class="custom-list my-1">Text Area</span
             ><i class="material-icons">add</i>
           </li>
+
+          <!--Add Radio Button-->
           <li
             class="list-group-item d-flex justify-content-between"
             (click)="
               openDialog({
-                type: 'radio_button',
+                type: 'input',
                 label: 'Radio Group',
-                input_type: '',
+                input_type: 'radio',
                 name: 'radio',
                 width: '',
-                options: ['hi', 'bye'],
+                options: [],
                 row: 0
               })
             "
@@ -324,16 +335,17 @@
             ><i class="material-icons">add</i>
           </li>
 
+          <!--Add Checkbox-->
           <li
             class="list-group-item d-flex justify-content-between"
             (click)="
               openDialog({
-                type: 'checkbox',
+                type: 'input',
                 label: 'Checkbox Group',
-                input_type: '',
+                input_type: 'checkbox',
                 name: '',
                 width: '',
-                options: ['hi', 'hello'],
+                options: [],
                 row: 0
               })
             "
@@ -341,13 +353,15 @@
             <span class="custom-list my-1">Checkbox Group</span
             ><i class="material-icons">add</i>
           </li>
+
+          <!--Date Field-->
           <li
             class="list-group-item d-flex justify-content-between"
             (click)="
-              openDialog({
-                type: 'date_field',
+              addElement({
+                type: 'input',
                 label: 'Date Field',
-                input_type: '',
+                input_type: 'date',
                 name: '',
                 width: '',
                 options: [],
@@ -358,13 +372,15 @@
             <span class="custom-list my-1">Date Field</span
             ><i class="material-icons">add</i>
           </li>
+
+          <!--Time Field-->
           <li
             class="list-group-item d-flex justify-content-between"
             (click)="
-              openDialog({
-                type: 'time_field',
+              addElement({
+                type: 'input',
                 label: 'Time Field',
-                input_type: '',
+                input_type: 'time',
                 name: '',
                 width: '',
                 options: [],

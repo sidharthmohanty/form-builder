@@ -20,7 +20,12 @@ button:focus {
   outline: none;
 }
 
-input:focus {
+input {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.input-control:focus {
   border-bottom: 2px dotted #694db7 !important;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;

@@ -10,40 +10,21 @@ import { FormDataService } from '../form-data.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class FormComponent implements OnInit {
-  public tests = [
-    {
-      type: 'input',
-      label: 'First Name',
-      input_type: 'text',
-      name: 'first_name',
-      width: '100',
-      options: [],
-      row: 0,
-    },
-  ];
-  public test: [];
-
-  public inputTypes = 1;
+  public tests = [];
 
   constructor(public dialog: MatDialog, private service: FormDataService) {}
   ngOnInit(): void {
     this.tests = this.service.getElementList();
   }
   openDialog(test) {
-    this.service.initializeFormGroup();
-
+    this.service.insertElement(test);
     this.dialog.open(ModalComponent, {
       width: '250px',
-      data: {
-        type: test.type,
-        label: test.label,
-        input_type: test.input_type,
-        name: test.name,
-        width: test.width,
-        options: test.options,
-        row: test.row,
-      },
     });
+  }
+
+  addElement(test) {
+    this.service.insertElement(test);
   }
 
   deleteElement(index) {

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -17,32 +16,23 @@ export class FormDataService {
     },
   ];
   constructor() {}
-  form: FormGroup = new FormGroup({
-    label: new FormControl([0]),
-    type: new FormControl([0]),
-    input: new FormControl([0]),
-    name: new FormControl([0]),
-    width: new FormControl([0]),
-    options: new FormControl([0]),
-    row: new FormControl([0]),
-  });
+  public test = [];
 
-  initializeFormGroup() {
-    this.form.patchValue({
-      label: '',
-      type: '',
-      input: '',
-      name: '',
-      width: '',
-      options: [],
-      row: [],
-    });
-  }
   insertElement(ele) {
     this.tests.push(ele);
   }
   removeElement(index) {
     this.tests.splice(index, 1);
+  }
+
+  insertOptions(opts) {
+    let index = this.tests.length - 1;
+    let test = this.tests[index];
+    opts.forEach((op) => {
+      test.options.push(op);
+    });
+    this.removeElement(index);
+    this.insertElement(test);
   }
 
   getElementList() {

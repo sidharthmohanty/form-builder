@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormDataService } from '../form-data.service';
+import { NgForm } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal',
@@ -8,6 +9,9 @@ import { FormDataService } from '../form-data.service';
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent implements OnInit {
+  lists = [{ id: 1, name: 'a' }];
+  public test = [];
+
   constructor(
     public service: FormDataService,
     public dialogRef: MatDialogRef<ModalComponent>
@@ -15,15 +19,18 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit() {
-    this.service.insertElement(this.service.form.value);
-    this.service.form.reset();
-    this.service.initializeFormGroup();
+  onSubmit(form: NgForm) {
+    let opts = Object.values(form.value);
+    this.service.insertOptions(opts);
     this.onClose();
   }
   onClose() {
-    this.service.form.reset();
-    this.service.initializeFormGroup();
     this.dialogRef.close();
+  }
+  addOptions() {
+    this.lists.push({
+      id: this.lists.length,
+      name: this.lists[this.lists.length - 1].name + 'a',
+    });
   }
 }

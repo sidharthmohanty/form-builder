@@ -1,22 +1,24 @@
-<form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
-  <mat-grid-list cols="1" rowHeight="300px">
-    <mat-grid-tile>
-      <div class="controles-container">
-        <mat-form-field>
-          <input name="label" matInput placeholder="Label*" />
-        </mat-form-field>
-        <mat-form-field>
-          <input name="options" matInput placeholder="Enter Options*" />
-        </mat-form-field>
-        <div class="button-row">
-          <button mat-raised-button color="primary" type="submit">
-            Submit
-          </button>
-          <button mat-raised-button color="warn" (click)="onClose()">
-            Close
-          </button>
-        </div>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
+<form class="normal-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div class="form-group">
+    <div class="d-flex justify-content-between">
+      <label for="label" class="mt-2">Add Options</label
+      ><span
+        ><i class="material-icons my-2" (click)="addOptions()">add</i></span
+      >
+    </div>
+    <div *ngFor="let list of lists">
+      <input
+        type="text"
+        ngModel
+        name="{{ list.name }}"
+        class="form-control mb-2"
+      />
+    </div>
+  </div>
+  <div class="d-flex justify-content-end mt-5">
+    <button mat-raised-button color="basic" (click)="onClose()" class="mx-2">
+      Close
+    </button>
+    <button type="submit" mat-raised-button color="primary">Add</button>
+  </div>
 </form>
