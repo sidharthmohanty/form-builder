@@ -4,9 +4,24 @@
       <div class="col-9 mt-5">
         <div *ngFor="let test of tests; let i = index">
           <div class="form-holder card-header">
-            <label for="{{ test.item_name }}" class="text-muted"
-              >{{ test.item_content.label }}
-            </label>
+            <div class="form-label d-flex justify-content-between">
+              <label
+                for="{{ test.item_name }}"
+                class="text-muted font-weight-bold"
+                >{{ test.item_name }}
+              </label>
+              <div class="form-action">
+                <span class="material-icons edit-icon" (click)="editFields(i)">
+                  edit
+                </span>
+                <span
+                  class="material-icons delete-icon"
+                  (click)="deleteElement(i)"
+                >
+                  delete
+                </span>
+              </div>
+            </div>
 
             <div
               class=""
@@ -14,24 +29,7 @@
               [ngSwitch]="item.input_type"
             >
               <!--Input tag-->
-
               <div class="form-group" *ngSwitchCase="'text'">
-                <div class="form-label d-flex justify-content-between">
-                  <div class="form-action">
-                    <span
-                      class="material-icons edit-icon"
-                      (click)="editFields(i)"
-                    >
-                      edit
-                    </span>
-                    <span
-                      class="material-icons delete-icon"
-                      (click)="deleteElement(i)"
-                    >
-                      delete
-                    </span>
-                  </div>
-                </div>
                 <input
                   type="text"
                   ngModel
@@ -41,253 +39,249 @@
                   width="{{ item.width }}"
                 />
               </div>
-            </div>
-          </div>
-
-          <!--Dropdown-->
-          <div class="form-holder card-header" *ngSwitchCase="'options'">
-            <div class="form-group">
-              <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.item_name }}" class="text-muted"
-                  >{{ test.item_content.label }}
-                </label>
-                <div class="form-action">
-                  <span
-                    class="material-icons edit-icon"
-                    (click)="editFields(i)"
-                  >
-                    edit
-                  </span>
-                  <span
-                    class="material-icons delete-icon"
-                    (click)="deleteElement(i)"
-                  >
-                    delete
-                  </span>
-                </div>
-              </div>
-              <div class="form-group">
-                <select
-                  ngModel
-                  name="{{ test.item_content.label }}"
-                  id="{{ test.item_name }}"
-                  class="form-control input-control"
-                >
-                  <option
-                    value="{{ option }}"
-                    *ngFor="let option of test.item_content.options"
-                    >{{ option }}</option
-                  >
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!--Radio Button-->
-          <div class="form-holder card-header" *ngSwitchCase="'radio'">
-            <div class="form-group">
-              <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.item_name }}" class="text-muted"
-                  >{{ test.item_content.label }}
-                </label>
-                <div class="form-action">
-                  <span
-                    class="material-icons edit-icon"
-                    (click)="editFields(i)"
-                  >
-                    edit
-                  </span>
-                  <span
-                    class="material-icons delete-icon"
-                    (click)="deleteElement(i)"
-                  >
-                    delete
-                  </span>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between align-items-end">
-                <div class="text-muted">{{ test.item_content.label }}</div>
-                <div>
-                  <div
-                    *ngFor="
-                      let option of test.item_content.options;
-                      let i = index
-                    "
-                    class="form-check form-check-inline"
-                  >
-                    <input
-                      class="form-check-input input-control"
-                      type="radio"
+              <!--Dropdown-->
+              <div class="form-holder card-header" *ngSwitchCase="'options'">
+                <div class="form-group">
+                  <div class="form-label d-flex justify-content-between">
+                    <label for="{{ test.item_name }}" class="text-muted"
+                      >{{ item.label }}
+                    </label>
+                    <div class="form-action">
+                      <span
+                        class="material-icons edit-icon"
+                        (click)="editFields(i)"
+                      >
+                        edit
+                      </span>
+                      <span
+                        class="material-icons delete-icon"
+                        (click)="deleteElement(i)"
+                      >
+                        delete
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <select
                       ngModel
-                      name="{{ test.item_content.label }}"
-                      id="{{ option }}"
-                      value="{{ option }}"
-                    />
-                    <label
-                      class="form-check-label text-muted"
-                      for="inlineRadio1"
-                      >{{ option }}</label
+                      name="{{ item.label }}"
+                      id="{{ test.item_name }}"
+                      class="form-control input-control"
                     >
+                      <option
+                        value="{{ option }}"
+                        *ngFor="let option of item.item_content.options"
+                        >{{ option }}</option
+                      >
+                    </select>
                   </div>
                 </div>
-                <div>Options</div>
-              </div>
-            </div>
-          </div>
-
-          <!--Check Box-->
-          <div class="form-holder card-header" *ngSwitchCase="'checkbox'">
-            <div class="form-group">
-              <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.item_name }}" class="text-muted"
-                  >{{ test.item_content.label }}
-                </label>
-                <div class="form-action">
-                  <span
-                    class="material-icons edit-icon"
-                    (click)="editFields(i)"
-                  >
-                    edit
-                  </span>
-                  <span
-                    class="material-icons delete-icon"
-                    (click)="deleteElement(i)"
-                  >
-                    delete
-                  </span>
-                </div>
               </div>
 
-              <div class="d-flex justify-content-between align-items-end">
-                <div class="text-muted">{{ test.item_content.label }}</div>
-                <div>
-                  <div
-                    *ngFor="
-                      let option of test.item_content.options;
-                      let i = index
-                    "
-                    class="form-check form-check-inline"
-                  >
-                    <label
-                      class="form-check-label text-muted mr-1"
-                      for="inlineRadio1"
-                      >{{ option }}</label
-                    >
-                    <input
-                      class="form-check-input input-control"
-                      type="checkbox"
-                      ngModel
-                      name="{{ test.item_name }}{{ i }}"
-                      id="{{ option }}"
-                      value="{{ option }}"
-                    />
+              <!--Radio Button-->
+              <div class="form-holder card-header" *ngSwitchCase="'radio'">
+                <div class="form-group">
+                  <div class="form-label d-flex justify-content-between">
+                    <label for="{{ test.item_name }}" class="text-muted"
+                      >{{ test.item_content.label }}
+                    </label>
+                    <div class="form-action">
+                      <span
+                        class="material-icons edit-icon"
+                        (click)="editFields(i)"
+                      >
+                        edit
+                      </span>
+                      <span
+                        class="material-icons delete-icon"
+                        (click)="deleteElement(i)"
+                      >
+                        delete
+                      </span>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-end">
+                    <div class="text-muted">{{ test.item_content.label }}</div>
+                    <div>
+                      <div
+                        *ngFor="let option of item.options; let i = index"
+                        class="form-check form-check-inline"
+                      >
+                        <input
+                          class="form-check-input input-control"
+                          type="radio"
+                          ngModel
+                          name="{{ test.item_content.label }}"
+                          id="{{ option }}"
+                          value="{{ option }}"
+                        />
+                        <label
+                          class="form-check-label text-muted"
+                          for="inlineRadio1"
+                          >{{ option }}</label
+                        >
+                      </div>
+                    </div>
+                    <div>Options</div>
                   </div>
                 </div>
-                <div>Options</div>
               </div>
-            </div>
-          </div>
 
-          <!--Date Field-->
-          <div class="form-holder card-header" *ngSwitchCase="'date'">
-            <div class="form-group">
-              <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.item_name }}" class="text-muted"
-                  >{{ test.item_content.label }}
-                </label>
-                <div class="form-action">
-                  <span
-                    class="material-icons edit-icon"
-                    (click)="editFields(i)"
-                  >
-                    edit
-                  </span>
-                  <span
-                    class="material-icons delete-icon"
-                    (click)="deleteElement(i)"
-                  >
-                    delete
-                  </span>
+              <!--Check Box-->
+              <div class="form-holder card-header" *ngSwitchCase="'checkbox'">
+                <div class="form-group">
+                  <div class="form-label d-flex justify-content-between">
+                    <label for="{{ test.item_name }}" class="text-muted"
+                      >{{ test.item_content.label }}
+                    </label>
+                    <div class="form-action">
+                      <span
+                        class="material-icons edit-icon"
+                        (click)="editFields(i)"
+                      >
+                        edit
+                      </span>
+                      <span
+                        class="material-icons delete-icon"
+                        (click)="deleteElement(i)"
+                      >
+                        delete
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-between align-items-end">
+                    <div class="text-muted">{{ test.item_content.label }}</div>
+                    <div>
+                      <div
+                        *ngFor="
+                          let option of test.item_content.options;
+                          let i = index
+                        "
+                        class="form-check form-check-inline"
+                      >
+                        <label
+                          class="form-check-label text-muted mr-1"
+                          for="inlineRadio1"
+                          >{{ option }}</label
+                        >
+                        <input
+                          class="form-check-input input-control"
+                          type="checkbox"
+                          ngModel
+                          name="{{ test.item_name }}{{ i }}"
+                          id="{{ option }}"
+                          value="{{ option }}"
+                        />
+                      </div>
+                    </div>
+                    <div>Options</div>
+                  </div>
                 </div>
               </div>
 
-              <input
-                type="date"
-                ngModel
-                name="{{ test.item_name }}"
-                id="{{ test.item_name }}"
-                class="form-control input-control"
-                placeholder="Hi there"
-                width="{{ test.item_content.width }}"
-              />
-            </div>
-          </div>
+              <!--Date Field-->
+              <div class="form-holder card-header" *ngSwitchCase="'date'">
+                <div class="form-group">
+                  <div class="form-label d-flex justify-content-between">
+                    <label for="{{ test.item_name }}" class="text-muted"
+                      >{{ test.item_content.label }}
+                    </label>
+                    <div class="form-action">
+                      <span
+                        class="material-icons edit-icon"
+                        (click)="editFields(i)"
+                      >
+                        edit
+                      </span>
+                      <span
+                        class="material-icons delete-icon"
+                        (click)="deleteElement(i)"
+                      >
+                        delete
+                      </span>
+                    </div>
+                  </div>
 
-          <!--Time Field-->
-          <div class="form-holder card-header" *ngSwitchCase="'time'">
-            <div class="form-group">
-              <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.item_name }}" class="text-muted"
-                  >{{ test.item_content.label }}
-                </label>
-                <div class="form-action">
-                  <span
-                    class="material-icons edit-icon"
-                    (click)="editFields(i)"
-                  >
-                    edit
-                  </span>
-                  <span
-                    class="material-icons delete-icon"
-                    (click)="deleteElement(i)"
-                  >
-                    delete
-                  </span>
+                  <input
+                    type="date"
+                    ngModel
+                    name="{{ test.item_name }}"
+                    id="{{ test.item_name }}"
+                    class="form-control input-control"
+                    placeholder="Hi there"
+                    width="{{ test.item_content.width }}"
+                  />
                 </div>
               </div>
-              <input
-                type="time"
-                ngModel
-                name="{{ test.item_name }}"
-                id="{{ test.item_name }}"
-                class="form-control input-control"
-                placeholder="{{ test.item_content.label }}"
-                width="{{ test.item_content.width }}"
-              />
-            </div>
-          </div>
 
-          <!--Text Area-->
-          <div class="form-holder card-header" *ngSwitchCase="'text-area'">
-            <div class="form-group">
-              <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.item_name }}" class="text-muted"
-                  >{{ test.item_content.label }}
-                </label>
-                <div class="form-action">
-                  <span
-                    class="material-icons edit-icon"
-                    (click)="editFields(i)"
-                  >
-                    edit
-                  </span>
-                  <span
-                    class="material-icons delete-icon"
-                    (click)="deleteElement(i)"
-                  >
-                    delete
-                  </span>
+              <!--Time Field-->
+              <div class="form-holder card-header" *ngSwitchCase="'time'">
+                <div class="form-group">
+                  <div class="form-label d-flex justify-content-between">
+                    <label for="{{ test.item_name }}" class="text-muted"
+                      >{{ test.item_content.label }}
+                    </label>
+                    <div class="form-action">
+                      <span
+                        class="material-icons edit-icon"
+                        (click)="editFields(i)"
+                      >
+                        edit
+                      </span>
+                      <span
+                        class="material-icons delete-icon"
+                        (click)="deleteElement(i)"
+                      >
+                        delete
+                      </span>
+                    </div>
+                  </div>
+                  <input
+                    type="time"
+                    ngModel
+                    name="{{ test.item_name }}"
+                    id="{{ test.item_name }}"
+                    class="form-control input-control"
+                    placeholder="{{ test.item_content.label }}"
+                    width="{{ test.item_content.width }}"
+                  />
                 </div>
               </div>
-              <input
-                type="text"
-                ngModel
-                name="{{ test.item_name }}"
-                id="{{ test.item_name }}"
-                class="form-control input-control"
-                placeholder="{{ test.item_content.label }}"
-                width="{{ test.item_content.width }}"
-              />
+
+              <!--Text Area-->
+              <div class="form-holder card-header" *ngSwitchCase="'text-area'">
+                <div class="form-group">
+                  <div class="form-label d-flex justify-content-between">
+                    <label for="{{ test.item_name }}" class="text-muted"
+                      >{{ test.item_content.label }}
+                    </label>
+                    <div class="form-action">
+                      <span
+                        class="material-icons edit-icon"
+                        (click)="editFields(i)"
+                      >
+                        edit
+                      </span>
+                      <span
+                        class="material-icons delete-icon"
+                        (click)="deleteElement(i)"
+                      >
+                        delete
+                      </span>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    ngModel
+                    name="{{ test.item_name }}"
+                    id="{{ test.item_name }}"
+                    class="form-control input-control"
+                    placeholder="{{ test.item_content.label }}"
+                    width="{{ test.item_content.width }}"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
