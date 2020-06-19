@@ -14,9 +14,16 @@ import { FormComponent } from './form/form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './modal/modal.component';
+import { ModalEditComponent } from './modal-edit/modal-edit.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, FormComponent, ModalComponent],
+  declarations: [
+    AppComponent,
+    FormComponent,
+    ModalComponent,
+    ModalEditComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,10 +38,11 @@ import { ModalComponent } from './modal/modal.component';
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ModalComponent],
+  entryComponents: [ModalComponent, ModalEditComponent],
 })
 export class AppModule {}

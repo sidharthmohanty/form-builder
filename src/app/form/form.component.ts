@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
 import { FormDataService } from '../form-data.service';
-import { NgForm } from '@angular/forms';
+import { ModalEditComponent } from '../modal-edit/modal-edit.component';
 
 @Component({
   selector: 'app-form',
@@ -11,11 +11,18 @@ import { NgForm } from '@angular/forms';
   encapsulation: ViewEncapsulation.None,
 })
 export class FormComponent implements OnInit {
-  public tests = [];
+  public tests;
 
   constructor(public dialog: MatDialog, private service: FormDataService) {}
   ngOnInit(): void {
-    this.tests = this.service.getElementList();
+    this.service.getData().subscribe(
+      (data) => {
+        this.tests = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   openDialog(test) {
     this.service.insertElement(test);
@@ -23,16 +30,21 @@ export class FormComponent implements OnInit {
       width: '250px',
     });
   }
-
-  addElement(test) {
-    this.service.insertElement(test);
+  editFields(index) {
+    this.service.readyElement(index);
+    this.dialog.open(ModalEditComponent, {
+      width: '250px',
+    });
   }
 
   deleteElement(index) {
     this.tests.splice(index, 1);
   }
 
-  onFormSubmit(formData: NgForm) {
-    console.log(formData.value);
+  onFormSubmit() {
+    console.log(JSON.stringify(this.tests));
+  }
+  clearForm() {
+    this.service.clearAll();
   }
 }

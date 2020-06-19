@@ -1,0 +1,39 @@
+<form class="normal-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div class="form-group">
+    <label for="label">Label</label>
+    <input type="text" ngModel="{{ test.label }}" name="label" />
+  </div>
+  <div
+    *ngIf="
+      test.input_type === 'options' ||
+      test.input_type === 'radio' ||
+      test.input_type === 'checkbox'
+    "
+  >
+    <div class="d-flex justify-content-between">
+      <label for="test.label" class="mt-2">Add Options</label
+      ><span
+        ><i class="material-icons my-2" (click)="addOptions()">add</i></span
+      >
+    </div>
+    <div *ngFor="let option of test.options; let i = index" class="d-flex">
+      <input
+        type="text"
+        value="{{ option }}"
+        name="i"
+        class="form-control mb-2"
+        (keyup)="UpdateOptions(i, $event)"
+      /><span
+        ><i class="material-icons my-2" (click)="removeOptions(i)"
+          >remove</i
+        ></span
+      >
+    </div>
+  </div>
+  <div class="d-flex justify-content-end mt-5">
+    <button mat-raised-button color="basic" (click)="onClose()" class="mx-2">
+      Close
+    </button>
+    <button type="submit" mat-raised-button color="primary">Update</button>
+  </div>
+</form>

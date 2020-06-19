@@ -1,5 +1,16 @@
 <form class="normal-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
   <div class="form-group">
+    <label for="label">Label</label>
+    <input type="text" ngModel="{{ test.label }}" name="label" />
+  </div>
+  <!-- <div [ngSwitch]="test.input_type"> -->
+  <div
+    *ngIf="
+      test.input_type === 'options' ||
+      test.input_type === 'radio' ||
+      test.input_type === 'checkbox'
+    "
+  >
     <div class="d-flex justify-content-between">
       <label for="label" class="mt-2">Add Options</label
       ><span
@@ -9,12 +20,51 @@
     <div *ngFor="let list of lists">
       <input
         type="text"
-        ngModel
+        [(ngModel)]="list.value"
         name="{{ list.name }}"
         class="form-control mb-2"
       />
     </div>
   </div>
+  <!-- <div *ngSwitchCase="'radio'">
+      <div class="d-flex justify-content-between">
+        <label for="label" class="mt-2">Add Options</label
+        ><span
+          ><i class="material-icons my-2" (click)="addOptions()">add</i></span
+        >
+      </div>
+      <div *ngFor="let list of lists">
+        <div class="d-flex justify-content-between">
+          <label for="label" class="mt-2">Add Options</label
+          ><span
+            ><i class="material-icons my-2" (click)="addOptions()">add</i></span
+          >
+        </div>
+        <input
+          type="text"
+          [(ngModel)]="list.value"
+          name="{{ list.name }}"
+          class="form-control mb-2"
+        />
+      </div>
+    </div>
+    <div *ngSwitchCase="'checkbox'">
+      <div class="d-flex justify-content-between">
+        <label for="label" class="mt-2">Add Options</label
+        ><span
+          ><i class="material-icons my-2" (click)="addOptions()">add</i></span
+        >
+        <div *ngFor="let list of lists">
+          <input
+            type="text"
+            [(ngModel)]="list.value"
+            name="{{ list.name }}"
+            class="form-control mb-2"
+          />
+        </div>
+      </div>
+    </div>
+  </div> -->
   <div class="d-flex justify-content-end mt-5">
     <button mat-raised-button color="basic" (click)="onClose()" class="mx-2">
       Close

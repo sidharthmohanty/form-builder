@@ -1,39 +1,46 @@
 <div class="container">
-  <form (ngSubmit)="onFormSubmit(formData)" #formData="ngForm">
+  <form (ngSubmit)="onFormSubmit()">
     <div class="row mt-2">
       <div class="col-9 mt-5">
-        <div
-          *ngFor="let test of tests; let i = index"
-          [ngSwitch]="test.input_type"
-        >
-          <!--Input tag-->
-          <div class="form-holder card-header" *ngSwitchCase="'text'">
-            <div class="form-group">
-              <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.name }}" class="text-muted"
-                  >{{ test.label }}
-                </label>
-                <div class="form-action">
-                  <span class="material-icons edit-icon">
-                    edit
-                  </span>
-                  <span
-                    class="material-icons delete-icon"
-                    (click)="deleteElement(i)"
-                  >
-                    delete
-                  </span>
+        <div *ngFor="let test of tests; let i = index">
+          <div class="form-holder card-header">
+            <label for="{{ test.item_name }}" class="text-muted"
+              >{{ test.item_content.label }}
+            </label>
+
+            <div
+              class=""
+              *ngFor="let item of test.item_content; let i = index"
+              [ngSwitch]="item.input_type"
+            >
+              <!--Input tag-->
+
+              <div class="form-group" *ngSwitchCase="'text'">
+                <div class="form-label d-flex justify-content-between">
+                  <div class="form-action">
+                    <span
+                      class="material-icons edit-icon"
+                      (click)="editFields(i)"
+                    >
+                      edit
+                    </span>
+                    <span
+                      class="material-icons delete-icon"
+                      (click)="deleteElement(i)"
+                    >
+                      delete
+                    </span>
+                  </div>
                 </div>
+                <input
+                  type="text"
+                  ngModel
+                  name="{{ test.item_name }}"
+                  class="form-control input-control"
+                  placeholder="{{ item.label }}"
+                  width="{{ item.width }}"
+                />
               </div>
-              <input
-                type="text"
-                ngModel
-                name="{{ test.name }}"
-                id="{{ test.name }}"
-                class="form-control input-control"
-                placeholder="{{ test.label }}"
-                width="{{ test.width }}"
-              />
             </div>
           </div>
 
@@ -41,11 +48,14 @@
           <div class="form-holder card-header" *ngSwitchCase="'options'">
             <div class="form-group">
               <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.name }}" class="text-muted"
-                  >{{ test.label }}
+                <label for="{{ test.item_name }}" class="text-muted"
+                  >{{ test.item_content.label }}
                 </label>
                 <div class="form-action">
-                  <span class="material-icons edit-icon">
+                  <span
+                    class="material-icons edit-icon"
+                    (click)="editFields(i)"
+                  >
                     edit
                   </span>
                   <span
@@ -58,13 +68,14 @@
               </div>
               <div class="form-group">
                 <select
-                  name="{{ test.name }}"
-                  id="{{ test.name }}"
+                  ngModel
+                  name="{{ test.item_content.label }}"
+                  id="{{ test.item_name }}"
                   class="form-control input-control"
                 >
                   <option
                     value="{{ option }}"
-                    *ngFor="let option of test.options"
+                    *ngFor="let option of test.item_content.options"
                     >{{ option }}</option
                   >
                 </select>
@@ -76,11 +87,14 @@
           <div class="form-holder card-header" *ngSwitchCase="'radio'">
             <div class="form-group">
               <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.name }}" class="text-muted"
-                  >{{ test.label }}
+                <label for="{{ test.item_name }}" class="text-muted"
+                  >{{ test.item_content.label }}
                 </label>
                 <div class="form-action">
-                  <span class="material-icons edit-icon">
+                  <span
+                    class="material-icons edit-icon"
+                    (click)="editFields(i)"
+                  >
                     edit
                   </span>
                   <span
@@ -92,17 +106,20 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end">
-                <div class="text-muted">{{ test.label }}</div>
+                <div class="text-muted">{{ test.item_content.label }}</div>
                 <div>
                   <div
-                    *ngFor="let option of test.options"
+                    *ngFor="
+                      let option of test.item_content.options;
+                      let i = index
+                    "
                     class="form-check form-check-inline"
                   >
                     <input
                       class="form-check-input input-control"
                       type="radio"
                       ngModel
-                      name="{{ test.name }}"
+                      name="{{ test.item_content.label }}"
                       id="{{ option }}"
                       value="{{ option }}"
                     />
@@ -122,11 +139,14 @@
           <div class="form-holder card-header" *ngSwitchCase="'checkbox'">
             <div class="form-group">
               <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.name }}" class="text-muted"
-                  >{{ test.label }}
+                <label for="{{ test.item_name }}" class="text-muted"
+                  >{{ test.item_content.label }}
                 </label>
                 <div class="form-action">
-                  <span class="material-icons edit-icon">
+                  <span
+                    class="material-icons edit-icon"
+                    (click)="editFields(i)"
+                  >
                     edit
                   </span>
                   <span
@@ -139,10 +159,13 @@
               </div>
 
               <div class="d-flex justify-content-between align-items-end">
-                <div class="text-muted">{{ test.label }}</div>
+                <div class="text-muted">{{ test.item_content.label }}</div>
                 <div>
                   <div
-                    *ngFor="let option of test.options"
+                    *ngFor="
+                      let option of test.item_content.options;
+                      let i = index
+                    "
                     class="form-check form-check-inline"
                   >
                     <label
@@ -154,7 +177,7 @@
                       class="form-check-input input-control"
                       type="checkbox"
                       ngModel
-                      name="{{ test.name }}"
+                      name="{{ test.item_name }}{{ i }}"
                       id="{{ option }}"
                       value="{{ option }}"
                     />
@@ -169,11 +192,14 @@
           <div class="form-holder card-header" *ngSwitchCase="'date'">
             <div class="form-group">
               <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.name }}" class="text-muted"
-                  >{{ test.label }}
+                <label for="{{ test.item_name }}" class="text-muted"
+                  >{{ test.item_content.label }}
                 </label>
                 <div class="form-action">
-                  <span class="material-icons edit-icon">
+                  <span
+                    class="material-icons edit-icon"
+                    (click)="editFields(i)"
+                  >
                     edit
                   </span>
                   <span
@@ -188,11 +214,11 @@
               <input
                 type="date"
                 ngModel
-                name="{{ test.name }}"
-                id="{{ test.name }}"
+                name="{{ test.item_name }}"
+                id="{{ test.item_name }}"
                 class="form-control input-control"
                 placeholder="Hi there"
-                width="{{ test.width }}"
+                width="{{ test.item_content.width }}"
               />
             </div>
           </div>
@@ -201,11 +227,14 @@
           <div class="form-holder card-header" *ngSwitchCase="'time'">
             <div class="form-group">
               <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.name }}" class="text-muted"
-                  >{{ test.label }}
+                <label for="{{ test.item_name }}" class="text-muted"
+                  >{{ test.item_content.label }}
                 </label>
                 <div class="form-action">
-                  <span class="material-icons edit-icon">
+                  <span
+                    class="material-icons edit-icon"
+                    (click)="editFields(i)"
+                  >
                     edit
                   </span>
                   <span
@@ -219,11 +248,11 @@
               <input
                 type="time"
                 ngModel
-                name="{{ test.name }}"
-                id="{{ test.name }}"
+                name="{{ test.item_name }}"
+                id="{{ test.item_name }}"
                 class="form-control input-control"
-                placeholder="{{ test.label }}"
-                width="{{ test.width }}"
+                placeholder="{{ test.item_content.label }}"
+                width="{{ test.item_content.width }}"
               />
             </div>
           </div>
@@ -232,11 +261,14 @@
           <div class="form-holder card-header" *ngSwitchCase="'text-area'">
             <div class="form-group">
               <div class="form-label d-flex justify-content-between">
-                <label for="{{ test.name }}" class="text-muted"
-                  >{{ test.label }}
+                <label for="{{ test.item_name }}" class="text-muted"
+                  >{{ test.item_content.label }}
                 </label>
                 <div class="form-action">
-                  <span class="material-icons edit-icon">
+                  <span
+                    class="material-icons edit-icon"
+                    (click)="editFields(i)"
+                  >
                     edit
                   </span>
                   <span
@@ -250,11 +282,11 @@
               <input
                 type="text"
                 ngModel
-                name="{{ test.name }}"
-                id="{{ test.name }}"
+                name="{{ test.item_name }}"
+                id="{{ test.item_name }}"
                 class="form-control input-control"
-                placeholder="{{ test.label }}"
-                width="{{ test.width }}"
+                placeholder="{{ test.item_content.label }}"
+                width="{{ test.item_content.width }}"
               />
             </div>
           </div>
@@ -262,7 +294,14 @@
       </div>
       <div class="col-3">
         <div class="d-flex justify-content-end">
-          <button mat-raised-button class="mx-2">Cancel</button>
+          <button
+            mat-raised-button
+            type="button"
+            class="mx-2"
+            (click)="clearForm()"
+          >
+            Clear
+          </button>
           <button mat-raised-button color="primary" type="submit">Save</button>
         </div>
         <p class="text-muted my-2">Custom Form Builder</p>
@@ -272,11 +311,11 @@
             <li
               class="list-group-item d-flex justify-content-between"
               (click)="
-                addElement({
+                openDialog({
                   type: 'input',
                   label: 'Text Field',
                   input_type: 'text',
-                  name: '',
+                  name: 'text_field',
                   width: '',
                   options: [],
                   row: 0
@@ -295,7 +334,7 @@
                   type: 'select',
                   label: 'Select Field',
                   input_type: 'options',
-                  name: '',
+                  name: 'option',
                   width: '',
                   options: [],
                   row: 0
@@ -310,11 +349,11 @@
             <li
               class="list-group-item d-flex justify-content-between"
               (click)="
-                addElement({
+                openDialog({
                   type: 'input',
                   label: 'Text Area',
                   input_type: 'text-area',
-                  name: '',
+                  name: 'text_area',
                   width: '',
                   options: [],
                   row: 0
@@ -352,7 +391,7 @@
                   type: 'input',
                   label: 'Checkbox Group',
                   input_type: 'checkbox',
-                  name: '',
+                  name: 'checkbox',
                   width: '',
                   options: [],
                   row: 0
@@ -367,11 +406,11 @@
             <li
               class="list-group-item d-flex justify-content-between"
               (click)="
-                addElement({
+                openDialog({
                   type: 'input',
                   label: 'Date Field',
                   input_type: 'date',
-                  name: '',
+                  name: 'date',
                   width: '',
                   options: [],
                   row: 0
@@ -386,11 +425,11 @@
             <li
               class="list-group-item d-flex justify-content-between"
               (click)="
-                addElement({
+                openDialog({
                   type: 'input',
                   label: 'Time Field',
                   input_type: 'time',
-                  name: '',
+                  name: 'time',
                   width: '',
                   options: [],
                   row: 0
