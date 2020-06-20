@@ -56,4 +56,10 @@ export class FormDataService {
   getEditElement() {
     return this.test;
   }
+  updateDirection(dire) {
+    const data = {
+      dire,
+    };
+    return this.http.put('http://localhost:8000/api/form/direction', data);
+  }
 }
