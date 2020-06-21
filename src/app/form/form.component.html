@@ -85,7 +85,8 @@
                         type="radio"
                         name="{{ test.item_name | lowercase }}"
                         id="{{ option.key }}"
-                        value="{{ option.value }}"
+                        ngModel
+                        [value]="option.value"
                       />
                       <label
                         class="form-check-label text-muted"
@@ -118,7 +119,8 @@
                             ngModel
                             name="{{ test.item_name }}"
                             id="{{ option }}"
-                            value="{{ option }}"
+                            ngModel
+                            [value]="option"
                           />
                         </div>
                       </div>
