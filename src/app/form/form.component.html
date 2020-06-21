@@ -10,14 +10,12 @@
           <!--main loop-->
           <div
             *ngFor="let test of tests; let i = index"
-            class="example-box"
+            class="example-box form-holder"
             cdkDrag
             id="{{ i }}"
             #r
           >
-            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-
-            <div class="form-holder card-header">
+            <div class="card-header">
               <!--Label and Action-->
               <div class="form-label d-flex justify-content-between">
                 <label
